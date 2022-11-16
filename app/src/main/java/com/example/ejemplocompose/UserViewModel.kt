@@ -30,13 +30,14 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.postValue(true)
             userRepo.getNewUser()
-            _isLoading.postValue(true)
+            _isLoading.postValue(false)
         }
 
-        fun deleteUser (toDelete: User){
-            viewModelScope.launch(Dispatchers.IO) {
-                userRepo.deleteUser(toDelete)
-            }
+    }
+
+    fun deleteUser (toDelete: User){
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepo.deleteUser(toDelete)
         }
     }
 
