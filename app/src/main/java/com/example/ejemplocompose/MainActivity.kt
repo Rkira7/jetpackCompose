@@ -12,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -22,8 +23,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.room.Delete
 import coil.compose.rememberImagePainter
+import com.example.ejemplocompose.Destinos.*
 import com.example.ejemplocompose.model.User
 import com.example.ejemplocompose.ui.theme.EjemplocomposeTheme
 import com.valentinilk.shimmer.shimmer
@@ -40,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MyApp1()
+                    NavigationHost()
                 }
             }
         }
@@ -48,7 +51,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp1(viewModel: UserViewModel = hiltViewModel()) {
+fun MyApp1(viewModel: UserViewModel = hiltViewModel(),
+        navController: NavController
+           //navegarInvetario:() -> Unit
+) {
 
     val user by viewModel.users.observeAsState(arrayListOf())
     val isLoading by viewModel.isLoading.observeAsState(false)
@@ -58,7 +64,9 @@ fun MyApp1(viewModel: UserViewModel = hiltViewModel()) {
         isLoading = isLoading,
         onDeleteClick = {
             viewModel.deleteUser(it)
-        }
+        },
+        navController = navController
+        //navegarInvetario = navegarInvetario
     )
 
 
@@ -69,7 +77,9 @@ fun MyApp(
     onAddClick: (()->Unit)? = null,
     onDeleteClick: ((toDelete: User)->Unit)? = null,
     users: List<User>,
-    isLoading: Boolean
+    isLoading: Boolean,
+    navController: NavController
+    //navegarInvetario:() -> Unit
 ){
     Scaffold(
         topBar = {
@@ -83,7 +93,18 @@ fun MyApp(
                         Icon(Icons.Filled.Add, "Add")
 
                     }
+                    IconButton(onClick = {
+                        navController.navigate(PantallaInvetario.rutas)
+                        //navegarInvetario()
+
+
+
+                    }){
+                        Icon(Icons.Filled.Home, "Home")
+
+                    }
                 }
+
             )
 
         }) {
@@ -191,6 +212,6 @@ fun Spacer(size: Int = 8) = androidx.compose.foundation.layout.Spacer(modifier =
 @Composable
 fun DefaultPreview() {
     EjemplocomposeTheme {
-        MyApp(onAddClick = null, users = listOf(), isLoading = false)
+
     }
 }
