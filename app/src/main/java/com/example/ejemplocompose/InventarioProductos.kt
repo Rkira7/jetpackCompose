@@ -3,14 +3,16 @@ package com.example.ejemplocompose
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -40,7 +42,8 @@ fun PantallaInventario(
                     .padding(horizontal = 8.dp, vertical = 4.dp)
                     .fillMaxWidth())
             {
-                Row(modifier = Modifier.padding(8.dp)) {
+                Row(
+                    modifier = Modifier.padding(8.dp).height(120.dp),) {
                     Image(
                         modifier = Modifier.size(100.dp),
                         painter = rememberImagePainter(
@@ -74,12 +77,14 @@ fun PantallaInventario(
                     Spacer()
 
                     Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                       )
-                    {
+                        verticalArrangement = Arrangement.SpaceAround,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).fillMaxHeight()
+                    ){
                         Image(
-                            modifier = Modifier.size(30.dp),
+                            modifier = Modifier.size(40.dp).clickable {
+
+                            },
                             colorFilter = ColorFilter.lighting(Color.Gray, Color.Blue),
                             painter = rememberImagePainter(
                                 data = "https://cdn.pixabay.com/photo/2013/07/12/14/53/cart-148964_960_720.png",
@@ -89,6 +94,7 @@ fun PantallaInventario(
                             contentDescription = null,
                             contentScale = ContentScale.FillHeight)
                     }
+
 
 
                 }
